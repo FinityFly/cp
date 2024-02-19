@@ -1,0 +1,9 @@
+# ignores all extensionless files
+*
+!*/
+!*.*
+.cph/
+.junk/
+.vscode/
+*.bin
+*.exe
