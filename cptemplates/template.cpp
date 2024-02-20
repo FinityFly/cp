@@ -11,6 +11,7 @@ using pll = pair<ll, ll>;
 using vll = vector<ll>;
 using vvll = vector<vector<ll> >;
 using vpll = vector<pair<ll, ll> >;
+using mll =  map<ll, ll>;
 
 #define FOR(i, s, e) for (ll i = (ll)s; i < (ll)e; i++)
 #define CFOR(i, s, e) for (ll i = (ll)s; i <= (ll)e; i++)

@@ -39,20 +39,23 @@ string to_string(T s, T e) {
 // #define MULTIPLE ;
 // #define GOOGLE ;
 
-ll n, a, b, m=0, cnt=0, ans=-1;
-vpll diff;
+ll n, ans=1;
+vpll m;
 
 void solve() {
     cin >> n;
     FOR (i, 0, n) {
-        cin >> a >> b;
-        diff.push_back({a, 1});
-        diff.push_back({b, -1});
+        ll a, b; cin >> a >> b;
+        m.push_back({b, a});
     }
-    sort(diff.begin(), diff.end());
-    FOR (i, 0, diff.size()) {
-        cnt += diff[i].second;
-        ans = max(ans, cnt);
+    sort(m.begin(), m.end());
+    ll l=m[0].first;
+    m.erase(m.begin());
+    FOR (i, 0, m.size()) {
+        if (m[i].second >= l) {
+            l = m[i].first;
+            ans++;
+        }
     }
     cout << ans << "\n";
 }

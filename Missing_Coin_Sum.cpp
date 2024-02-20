@@ -11,6 +11,7 @@ using pll = pair<ll, ll>;
 using vll = vector<ll>;
 using vvll = vector<vector<ll> >;
 using vpll = vector<pair<ll, ll> >;
+using mll =  map<ll, ll>;
 
 #define FOR(i, s, e) for (ll i = (ll)s; i < (ll)e; i++)
 #define CFOR(i, s, e) for (ll i = (ll)s; i <= (ll)e; i++)
@@ -39,22 +40,19 @@ string to_string(T s, T e) {
 // #define MULTIPLE ;
 // #define GOOGLE ;
 
-ll n, a, b, m=0, cnt=0, ans=-1;
-vpll diff;
+ll n;
+ll a[200001];
 
 void solve() {
     cin >> n;
+    FOR (i, 0, n) cin >> a[i];
+    sort(a, a+n);
+    ll sum = 1;
     FOR (i, 0, n) {
-        cin >> a >> b;
-        diff.push_back({a, 1});
-        diff.push_back({b, -1});
+        if (a[i] > sum) break;
+        sum += a[i];
     }
-    sort(diff.begin(), diff.end());
-    FOR (i, 0, diff.size()) {
-        cnt += diff[i].second;
-        ans = max(ans, cnt);
-    }
-    cout << ans << "\n";
+    cout << sum << "\n";
 }
 
 int main() {

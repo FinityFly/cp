@@ -11,6 +11,7 @@ using pll = pair<ll, ll>;
 using vll = vector<ll>;
 using vvll = vector<vector<ll> >;
 using vpll = vector<pair<ll, ll> >;
+using mll =  map<ll, ll>;
 
 #define FOR(i, s, e) for (ll i = (ll)s; i < (ll)e; i++)
 #define CFOR(i, s, e) for (ll i = (ll)s; i <= (ll)e; i++)
@@ -21,7 +22,7 @@ using vpll = vector<pair<ll, ll> >;
 ll read(){ll s=0,f=1;char ch=getchar();while(ch<'0'||ch>'9'){if(ch=='-')f=-1;ch=getchar();}while(ch>='0'&&ch<='9'){s=(s<<3)+(s<<1)+ch-'0',ch=getchar();}return s*f;}
 template <class T>
 string to_string(T s, T e) {
-    if (s == e) return "[]";
+    if (s f== e) return "[]";
     string ret = "[" + to_string(*s++);
     while (s != e) ret += ", " + to_string(*s++);
     return ret + "]";
@@ -39,19 +40,15 @@ string to_string(T s, T e) {
 // #define MULTIPLE ;
 // #define GOOGLE ;
 
-ll n, a, b, m=0, cnt=0, ans=-1;
-vpll diff;
+ll n;
+ll a[200001];
 
 void solve() {
     cin >> n;
-    FOR (i, 0, n) {
-        cin >> a >> b;
-        diff.push_back({a, 1});
-        diff.push_back({b, -1});
-    }
-    sort(diff.begin(), diff.end());
-    FOR (i, 0, diff.size()) {
-        cnt += diff[i].second;
+    FOR (i, 0, n) cin >> a[i];
+    ll ans=a[0], cnt=a[0];
+    FOR (i, 1, n) {
+        cnt = max(cnt+a[i], a[i]);
         ans = max(ans, cnt);
     }
     cout << ans << "\n";
