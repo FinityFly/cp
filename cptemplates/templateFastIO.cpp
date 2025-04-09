@@ -11,7 +11,7 @@ typedef pair<ll, ll> pll;
 typedef vector<ll> vll;
 typedef vector< vector<ll> > vvll;
 typedef vector< pair<ll, ll> > vpll;
-typedef map<ll, ll> mll;
+typedef unordered_map<ll, ll> mll;
 
 #define FOR(i, s, e) for (ll i = (ll)s; i < (ll)e; i++)
 #define CFOR(i, s, e) for (ll i = (ll)s; i <= (ll)e; i++)

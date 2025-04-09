@@ -11,7 +11,7 @@ typedef pair<ll, ll> pll;
 typedef vector<ll> vll;
 typedef vector< vector<ll> > vvll;
 typedef vector< pair<ll, ll> > vpll;
-typedef map<ll, ll> mll;
+typedef unordered_map<ll, ll> mll;
 
 #define FOR(i, s, e) for (ll i = (ll)s; i < (ll)e; i++)
 #define CFOR(i, s, e) for (ll i = (ll)s; i <= (ll)e; i++)
@@ -40,10 +40,34 @@ string to_string(T s, T e) {
 // #define MULTIPLE ;
 // #define GOOGLE ;
 
-ll n;
+ll n, m;
+ll points[100001][2];
+mll freq;
+unordered_set<ld> slopes;
 
 void solve() {
-    cin >> n;
+    ll cnt = 0;
+    cin >> n >> m;
+    FOR (i, 0, n) cin >> points[i][0] >> points[i][1];
+    FOR (i, 0, m) {
+        freq.clear();
+        ll k, d; cin >> k >> d;
+        if (slopes.find((ld)d / k) == slopes.end()) {
+            slopes.insert((ld)d / k);
+        } else {
+            continue;
+        }
+        FOR (j, 0, n) {
+            ll u = (d * points[j][1]) - (k * points[j][0]);
+            freq[u]++;
+        }
+        TRAV (x, freq) {
+            if (x.second > 1) {
+                cnt += (x.second * (x.second - 1)) / 2;
+            }
+        }
+    }
+    cout << cnt << "\n";
 }
 
 int main() {
