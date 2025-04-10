@@ -40,51 +40,47 @@ string to_string(T s, T e) {
 // #define MULTIPLE ;
 // #define GOOGLE ;
 
-ll n, ans = INT_MAX;
-vpll adj[2001];
-bool vis[2001];
-ll parity[2001];
+int n, evenCnt = 0, oddCnt = 0;
+ll ans = LONG_LONG_MAX;
+vector<pair<int, int>> adj[200001];
+bool vis[200001];
+int parity[200001];
+int cnt[200001][2]; // counts of odd and even nodes in each node's subtree, coming from the root of 1
 
-void dfs1(ll u, vpll &cnt) {
-    TRAV (v, adj[u]) {
-        if (!vis[v.first]) {
-            vis[v.first] = true;
-            parity[v.first] = (parity[u] + v.second) % 2;
-            dfs1(v.first, cnt);
-            if (v.second % 2 == 1) {
-                ll tmp = cnt[v.first].first;
-                cnt[u].first += cnt[v.first].second;
-                cnt[u].second += tmp + 1;
-            } else {
-                cnt[u].first += cnt[v.first].first + 1;
-                cnt[u].second += cnt[v.first].second;
-            }
+pair<int, int> dfs1(int u) {
+    int evenNodes = 0, oddNodes = 0;
+    if (parity[u] == 0) evenNodes = 1;
+    else oddNodes = 1;
+    TRAV (x, adj[u]) {
+        int v = x.first, w = x.second;
+        if (!vis[v]) {
+            vis[v] = true;
+            parity[v] = (parity[u] + w) % 2;
+            if (parity[v] == 0) evenCnt++;
+            else oddCnt++;
+            pair<int, int> sub = dfs1(v);
+            evenNodes += sub.first;
+            oddNodes += sub.second;
         }
     }
+    cnt[u][0] = evenNodes;
+    cnt[u][1] = oddNodes;
+    return {evenNodes, oddNodes};
 }
 
-void dfs2(ll u, ll even, ll odd, vpll cnt) {
-    cout << "u: " << u << " even: " << even << " odd: " << odd << "\n";
+void dfs2(int u) {
     TRAV (v, adj[u]) {
         if (!vis[v.first]) {
             vis[v.first] = true;
-            dfs2(v.first, even + ((parity[u] + v.second) % 2 == 0), odd + ((parity[u] + v.second) % 2 == 1), cnt);
-            // no flip
-            ll oddEdges = (odd + cnt[u].second), evenEdges = (even + cnt[u].first);
-            ll oddTotal = oddEdges * evenEdges;
-            ll evenTotal = (n * (n - 1) / 2) - oddTotal;
-            cout << "oddEdges: " << oddEdges << " evenEdges: " << evenEdges << "\n";
-            cout << "oddTotal: " << oddTotal << " evenTotal: " << evenTotal << "\n";
-            ll noflip = abs(oddTotal - evenTotal);
+            dfs2(v.first);
 
-            oddEdges = (odd + cnt[u].first); evenEdges = (even + cnt[u].second);
-            oddTotal = oddEdges * evenEdges;
-            evenTotal = (n * (n - 1) / 2) - oddTotal;
-            cout << "oddEdges: " << oddEdges << " evenEdges: " << evenEdges << "\n";
-            cout << "oddTotal: " << oddTotal << " evenTotal: " << evenTotal << "\n";
+            int oddNodes = oddCnt - cnt[v.first][1] + cnt[v.first][0];
+            int evenNodes = evenCnt - cnt[v.first][0] + cnt[v.first][1];
+
+            ll oddTotal = oddNodes * 1LL * evenNodes;
+            ll evenTotal = (n * 1LL * (n - 1) / 2) - oddTotal;
             ll flip = abs(oddTotal - evenTotal);
-            cout << "noflip: " << noflip << " flip: " << flip << "\n\n";
-            ans = min(ans, min(noflip, flip));
+            ans = min(ans, flip);
         }
     }
 }
@@ -92,33 +88,33 @@ void dfs2(ll u, ll even, ll odd, vpll cnt) {
 void solve() {
     cin >> n;
     FOR (i, 0, n-1) {
-        ll u, v, w;
+        int u, v, w;
         cin >> u >> v >> w;
         if (w % 2 == 0) w = 0;
         else w = 1;
         adj[u].push_back({v, w});
         adj[v].push_back({u, w});
     }
-    vpll cnt(2000); // counts of odd and even nodes in each node's subtree, coming from the root of 1
-    fill(parity, parity + 2001, 0);
-    fill(vis, vis + 2001, false);
+
+    fill(parity, parity + 200001, 0);
+    fill(vis, vis + 200001, false);
+
     vis[1] = true;
     parity[1] = 0;
-    dfs1(1, cnt);
-    cout << "parity:\n";
-    FOR (i, 1, n+1) {
-        cout << parity[i] << " ";
-    }
-    cout << "\n";
-    cout << "cnt:\n";
-    FOR (i, 1, n+1) {
-        cout << cnt[i].first << " " << cnt[i].second << "\n";
-    }
-    cout << "\n";
-    fill(vis, vis + 2001, false);
+    evenCnt = 1;
+
+    dfs1(1);
+
+    fill(vis, vis + 200001, false);
+
     vis[1] = true;
-    dfs2(1, 1, 0, cnt);
-    cout << ans << "\n";
+
+    dfs2(1);
+
+    ll oddTotal = evenCnt * 1LL * oddCnt;
+    ll evenTotal = (n * 1LL * (n - 1) / 2) - oddTotal;
+    ll noflip = abs(oddTotal - evenTotal);
+    cout << min(ans, noflip) << "\n";
 }
 
 int main() {
