@@ -11,8 +11,7 @@ typedef pair<ll, ll> pll;
 typedef vector<ll> vll;
 typedef vector< vector<ll> > vvll;
 typedef vector< pair<ll, ll> > vpll;
-typedef unordered_map<ll, ll> mll;
-typedef unordered_set<ll> sll;
+typedef map<ll, ll> mll;
 
 #define FOR(i, s, e) for (ll i = (ll)s; i < (ll)e; i++)
 #define CFOR(i, s, e) for (ll i = (ll)s; i <= (ll)e; i++)
@@ -37,14 +36,23 @@ string to_string(T s, T e) {
 // #define PRECISION ;
 // #define FILE ;
 
-#define SINGLE ;
-// #define MULTIPLE ;
+// #define SINGLE ;
+#define MULTIPLE ;
 // #define GOOGLE ;
 
 ll n;
+ll a[101];
 
 void solve() {
+    fill(a, a + 101, 0);
     cin >> n;
+    ll big = 0, small = INT_MAX;
+    FOR (i, 0, n) {
+        cin >> a[i];
+        big = max(big, a[i]);
+        small = min(small, a[i]);
+    }
+    cout << big - small << "\n";
 }
 
 int main() {
