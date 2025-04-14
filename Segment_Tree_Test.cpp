@@ -41,7 +41,6 @@ string to_string(T s, T e) {
 // #define GOOGLE ;
 
 ll n, m;
-ll q[500001][3];
 vll arr(100001);
 
 ll gcd(ll a, ll b) {
