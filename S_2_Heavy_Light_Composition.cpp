@@ -11,7 +11,8 @@ typedef pair<ll, ll> pll;
 typedef vector<ll> vll;
 typedef vector< vector<ll> > vvll;
 typedef vector< pair<ll, ll> > vpll;
-typedef map<ll, ll> mll;
+typedef unordered_map<ll, ll> mll;
+typedef unordered_set<ll> sll;
 
 #define FOR(i, s, e) for (ll i = (ll)s; i < (ll)e; i++)
 #define CFOR(i, s, e) for (ll i = (ll)s; i <= (ll)e; i++)
@@ -36,14 +37,37 @@ string to_string(T s, T e) {
 // #define PRECISION ;
 // #define FILE ;
 
-// #define SINGLE ;
-#define MULTIPLE ;
+#define SINGLE ;
+// #define MULTIPLE ;
 // #define GOOGLE ;
 
-ll n;
+ll t, n;
+string s;
+unordered_map<char, ll> freq;
 
 void solve() {
-    cin >> n;
+    cin >> t >> n;
+    while (t--) {
+        cin >> s;
+        freq.clear();
+        for (char c : s) {
+            freq[c]++;
+        }
+        bool isHeavy = (freq[s[0]] == 1) ? 0 : 1, isGood = true;
+        for (int i = 1; i < s.length(); ++i) {
+            if (isHeavy && freq[s[i]] > 1) {
+                isGood = false;
+                break;
+            } else if (!isHeavy && freq[s[i]] == 1) {
+                isGood = false;
+                break;
+            } else {
+                isHeavy = !isHeavy;
+            }
+        }
+        if (isGood) cout << "T\n";
+        else cout << "F\n";
+    }
 }
 
 int main() {

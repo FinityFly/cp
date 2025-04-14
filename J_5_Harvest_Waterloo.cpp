@@ -11,7 +11,8 @@ typedef pair<ll, ll> pll;
 typedef vector<ll> vll;
 typedef vector< vector<ll> > vvll;
 typedef vector< pair<ll, ll> > vpll;
-typedef map<ll, ll> mll;
+typedef unordered_map<ll, ll> mll;
+typedef unordered_set<ll> sll;
 
 #define FOR(i, s, e) for (ll i = (ll)s; i < (ll)e; i++)
 #define CFOR(i, s, e) for (ll i = (ll)s; i <= (ll)e; i++)
@@ -36,14 +37,45 @@ string to_string(T s, T e) {
 // #define PRECISION ;
 // #define FILE ;
 
-// #define SINGLE ;
-#define MULTIPLE ;
+#define SINGLE ;
+// #define MULTIPLE ;
 // #define GOOGLE ;
 
-ll n;
+ll r, c, v=0;
+char grid[320][320];
+bool vis[320][320];
+ll directions[4][2] = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+
+void traverse(ll a, ll b) {
+    if (grid[a][b] == 'S') {
+        v += 1;
+    } else if (grid[a][b] == 'M') {
+        v += 5;
+    } else if (grid[a][b] == 'L') {
+        v += 10;
+    }
+    for (int i = 0; i < 4; ++i) {
+        ll newx = a + directions[i][0], newy = b + directions[i][1];
+        if (vis[newx][newy]) continue;
+        if (newx < 0 || newx >= r) continue;
+        else if (newy < 0 || newy >= c) continue;
+        else if (grid[newx][newy] == '*') continue;
+        vis[newx][newy] = 1;
+        traverse(newx, newy);
+    }
+}
 
 void solve() {
-    cin >> n;
+    cin >> r >> c;
+    for (int i = 0; i < r; ++i) {
+        for (int j = 0; j < c; ++j) {
+            cin >> grid[i][j];
+        }
+    }
+    ll a, b; cin >> a >> b;
+    vis[a][b] = 1;
+    traverse(a, b);
+    cout << v << "\n";
 }
 
 int main() {
