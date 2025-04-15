@@ -41,28 +41,28 @@ string to_string(T s, T e) {
 // #define MULTIPLE ;
 // #define GOOGLE ;
 
-ll n, m;
-ll a[1001], b[1001], dp[1001][1001];
+ll n;
 
 void solve() {
-    cin >> n >> m;
-    for (int i = 0; i < n; ++i) {
-        cin >> a[i];
-    }
-    for (int i = 0; i < m; ++i) {
-        cin >> b[i];
-    }
-    // memset(dp, 0, sizeof(dp));
-    for (int i = 1; i <= n; ++i) {
-        for (int j = 1; j <= m; ++j) {
-            if (a[i - 1] == b[j - 1]) {
-                dp[i][j] = dp[i - 1][j - 1] + 1;
-            } else {
-                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
-            }
+    cin >> n;
+    // tails: stores the smallest ending element for a longest increasing subsequence of length i+1 at index i
+    // at tails[0], we store the smallest ending element for a longest increasing subsequence of length 1
+    /*
+    1 5 2 6 4
+    0   2   4
+    */
+    vector<ll> a(n), tails;
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    tails.push_back(a[0]);
+    for (int i = 1; i < n; ++i) {
+        if (a[i] > tails.back()) {
+            tails.push_back(a[i]);
+        } else {
+            auto it = lower_bound(tails.begin(), tails.end(), a[i]);
+            *it = a[i];
         }
     }
-    cout << dp[n][m] << "\n";
+    cout << tails.size() << "\n";
 }
 
 int main() {
