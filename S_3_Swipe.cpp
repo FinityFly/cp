@@ -12,6 +12,7 @@ typedef vector<ll> vll;
 typedef vector< vector<ll> > vvll;
 typedef vector< pair<ll, ll> > vpll;
 typedef unordered_map<ll, ll> mll;
+typedef unordered_set<ll> sll;
 
 #define FOR(i, s, e) for (ll i = (ll)s; i < (ll)e; i++)
 #define CFOR(i, s, e) for (ll i = (ll)s; i <= (ll)e; i++)
@@ -41,55 +42,43 @@ string to_string(T s, T e) {
 // #define GOOGLE ;
 
 ll n;
-ll grid[501][501];
-vll adj[501];
-ll indeg[501];
-bool vis[501][501];
-
-void bfs(int x) {
-    fill(vis[x], vis[x]+501, 0);
-    queue<ll> q;
-    q.push(x);
-    vis[x][x] = 1;
-    while (!q.empty()) {
-        ll u = q.front(); q.pop();
-        for (auto v : adj[u]) {
-            if (!vis[x][v]) {
-                vis[x][v] = 1;
-                q.push(v);
-            }
-        }
-    }
-}
+ll moves[300000];
 
 void solve() {
     cin >> n;
-    FOR (i, 0, n) {
-        string s; cin >> s;
-        FOR (j, 0, n) {
-            if (s[j] == '1') {
-                adj[i].push_back(j);
-            }
-        }
-    }
-    ll cnt = 0;
+    vll a, b, comp;
+    ll prev = -1;
     for (int i = 0; i < n; ++i) {
-        bfs(i);
+        ll x; cin >> x;
+        a.push_back(x);
     }
     for (int i = 0; i < n; ++i) {
-        for (int j = i+1; j < n; ++j) {
-            if (vis[i][j] == 0 && vis[j][i] == 0) {
-                cnt++;
-            }
+        ll x; cin >> x;
+        b.push_back(x);
+        if (x != prev) {
+            prev = x;
+            comp.push_back(x);
         }
     }
-    // for (int i = 0; i < n; ++i) {
-    //     for (int j = 0; j < n; ++j) {
-    //         cout << vis[i][j] << " ";
-    //     }
-    //     cout << "\n";
-    // }
-    cout << cnt << "\n";
+    ll ind = 0;
+    bool isSub = false;
+    for (int i = 0; i < n; ++i) {
+        if (a[i] == comp[ind]) {
+            if (ind == comp.size()-1) {
+                isSub = true;
+                break;
+            }
+            ind++;
+        }
+    }
+    if (isSub) {
+        cout << "YES\n";
+    } else {
+        cout << "NO\n";
+        return;
+    }
+    ll l = 0, r = 0;
+    
 }
 
 int main() {

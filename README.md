@@ -5,7 +5,6 @@
 - https://dmoj.ca/problem/ccc24s3
 - https://dmoj.ca/problem/ccc24s4
 - https://dmoj.ca/problem/acc2p2
-- https://dmoj.ca/problem/acc7p3
 - https://dmoj.ca/problem/acc8p3
 - https://dmoj.ca/problem/aac1p6
 - https://dmoj.ca/problem/aac2p3
