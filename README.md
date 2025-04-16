@@ -4,7 +4,7 @@
 
 ### 7pt
 
-- https://dmoj.ca/problem/acc7p2
+- https://dmoj.ca/problem/ioi09p5
 
 ### 10pt
 
@@ -17,6 +17,7 @@
 
 ### 12pt
 
+- https://dmoj.ca/problem/ccc20s4
 - https://dmoj.ca/problem/ccc24s4
 - https://dmoj.ca/problem/aac1p6
 - https://dmoj.ca/problem/aac3p5
@@ -40,4 +41,8 @@
 
 ### 20pt
 
+- https://dmoj.ca/problem/ccc16s5
+- https://dmoj.ca/problem/ccc18s5
+- https://dmoj.ca/problem/ccc19s5
+- https://dmoj.ca/problem/apio10p1
 - https://dmoj.ca/problem/tle18p1 (refer to eric pei's editorial)
