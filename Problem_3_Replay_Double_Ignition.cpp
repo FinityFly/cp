@@ -53,10 +53,10 @@ void solve() {
     }
     ll a=1, b=1;
     ll loop = INT_MAX;
-    for (int i = 2; i <= qmax; ++i) {
+    for (int i = 2; fib.length() <= qmax; ++i) {
         int v = (a + b) % m;
-        if (b == 1 && v == 1) {
-            loop = i;
+        if (b == 0 && v == 1 && loop == INT_MAX) {
+            loop = fib.length();
             break;
         }
         fib += to_string(v);
@@ -65,7 +65,7 @@ void solve() {
     }
     for (int i = 0; i < q; ++i) {
         if (queries[i] >= loop) {
-            cout << fib[queries[i] % loop] << "\n";
+            cout << fib[(queries[i]-1) % loop] << "\n";
         } else {
             cout << fib[queries[i]-1] << "\n";
         }
