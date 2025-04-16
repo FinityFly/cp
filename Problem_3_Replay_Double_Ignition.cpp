@@ -41,25 +41,22 @@ string to_string(T s, T e) {
 // #define MULTIPLE ;
 // #define GOOGLE ;
 
-ll m, q, n, qmax = -1;
+ll m, q, qmax = -1;
 ll queries[1000001];
-ll vis[20001];
 
-// PISANO PERIOD
-
-void solve() {
-    fill(vis, vis+20001, 0);
+void solve() { 
     cin >> m >> q;
     string fib = "11";
     for (int _ = 0; _ < q; ++_) {
         cin >> queries[_];
         qmax = max(qmax, queries[_]);
     }
-    ll end, a=1, b=1;
-    bool loop = false;
-    for (end = 2; end <= qmax; ++end) {
+    ll a=1, b=1;
+    ll loop = INT_MAX;
+    for (int i = 2; i <= qmax; ++i) {
         int v = (a + b) % m;
         if (b == 1 && v == 1) {
+            loop = i;
             break;
         }
         fib += to_string(v);
@@ -67,14 +64,11 @@ void solve() {
         b = v;
     }
     for (int i = 0; i < q; ++i) {
-        // if (queries[i] < start) {
-        //     ll ind = start + ((queries[i]-1-start)%(end-start));
-        //     cout << fib[ind] << "\n";
-        // } else {
-        //     cout << fib[queries[i]-1] << "\n";
-        // }
-        if (queries[i] >= end) cout << "LOOP\n";
-        else cout << fib[queries[i]-1] << "\n";
+        if (queries[i] >= loop) {
+            cout << fib[queries[i] % loop] << "\n";
+        } else {
+            cout << fib[queries[i]-1] << "\n";
+        }
     }
 }
 
