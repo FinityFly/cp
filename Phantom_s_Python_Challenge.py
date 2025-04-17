@@ -28,7 +28,11 @@
 # first change format of prime list to store prime value instead of bool
 # use one for loop for both setting non primes 0 and printing
 # 91/100
-[p:=[*range(int(input()))],[[*[p.__setitem__(j,0)for j in p[i*i::i]],print(str(i)+'*'*(1&(p[i-2]|p[i+2])))]for i in p[2:]if p[i]]]
-[p:=[*range(int(input()))]],[[*[p.__setitem__(j,0)for j in p[i*i::i]],print(str(i)+'*'*(1&(p[i-2]|p[i+2])))]for i in p[2:]if p[i]]
+# [p:=[*range(int(input()))],[[*[p.__setitem__(j,0)for j in p[i*i::i]],print(str(i)+'*'*(1&(p[i-2]|p[i+2])))]for i in p[2:]if p[i]]]
+# [p:=[*range(int(input()))]],[[*[p.__setitem__(j,0)for j in p[i*i::i]],print(str(i)+'*'*(1&(p[i-2]|p[i+2])))]for i in p[2:]if p[i]]
+[B:=[*range(int(input()))]],[[*[B.__setitem__(A,0)for A in B[A*A::A]],print(str(A)+'*'*(1&(B[A-2]|B[A+2])))]for A in B[2:]if B[A]]
+
+# illegal/100
+# exec(bytes('灛㴺⩛慲杮⡥湩⡴湩異⡴⤩崩ⱝ孛嬪⹰彟敳楴整彭⡟ⱪ⤰潦⁲⁪湩瀠楛椪㨺嵩ⱝ牰湩⡴瑳⡲⥩✫✪⠪☱瀨楛㈭籝孰⭩崲⤩崩潦⁲⁩湩瀠㉛崺晩瀠楛嵝','u16')[2:])
 
 # more optimizations might be possible with more list comprehensions
