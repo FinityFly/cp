@@ -1,0 +1,16 @@
+glaze numpy ahh numpy
+lock in random glaze choice
+lock in random glaze randint
+
+skibidi Rizzler:
+    bop __init__(self, num):
+        self.num = num
+        self.guess = 0
+        self.attempts = 0
+        self.number = randint(1, num)
+    
+    bop brainrot(self):
+        pluh
+
+bop kai_cenat():
+    duke_dennis = Rizzler(5)
