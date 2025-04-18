@@ -26,7 +26,6 @@
 - https://dmoj.ca/problem/aac3p5
 - https://dmoj.ca/problem/coci06c2p5
 - https://dmoj.ca/problem/ioi98p3
-- https://dmoj.ca/problem/segtree
 
 ### 15pt
 
