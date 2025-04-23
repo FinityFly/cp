@@ -81,11 +81,11 @@ void solve() {
     // construct mst
     ll og_cnt = 0, og_cost = 0, edges_cnt = 0, heaviest = 0;
     for (auto edge : edges) {
-        heaviest = max(heaviest, edge.w);
         if (edges_cnt == n - 1) break;
         if (fset(edge.u) != fset(edge.v)) {
             uni(edge.u, edge.v);
             edges_cnt++;
+            heaviest = max(heaviest, edge.w);
             if (edge.og) {
                 og_cnt++;
                 og_cost += edge.w;
@@ -95,20 +95,24 @@ void solve() {
     if (d == 0) {
         cout << (n-1)-og_cnt << "\n";
     } else {
-        bool replace = false;
-        for (ll i = 0; i < m; ++i) {
-            // if the edge's weight is less than or was in the original MST and has a weight equal to, then we add it into the MST like in the standard algorithm. However, if the weight of the edge is <= D and is also an old edge, then it can replace one of the edges we used, thus decreasing the number of days required by 1
-            if (edges[i].w < heaviest || (edges[i].og) && edges[i].w == heaviest) {
-                mst[edges[i].u].push_back({edges[i].v, edges[i].w});
-                mst[edges[i].v].push_back({edges[i].u, edges[i].w});
-            }
-            // if the weight of the edge is <= D and is also an old edge, then it can replace one of the edges we used, thus decreasing the number of days required by 1
-            if (edges[i].w <= d && edges[i].og) {
-                replace = true;
-                break;
-            }
+        // kruskal mst again
+        fill(p, p+n+1, 0);
+        for (ll i = 1; i <= n; ++i) {
+            mset(i);
         }
-        cout << (n-1) - og_cnt - replace << "\n"; 
+        for (auto edge : edges) {
+            if (fset(edge.u) != fset(edge.v)) {
+                // the edges less than heaviest are def going in the mst
+                // if the edge is one of the heaviest, then its optimal if they're an og
+                if (edge.w < heaviest || (edge.w == heaviest && edge.og)) {
+                    uni(edge.u, edge.v);
+                } else if (edge.w <= d && edge.og) { // if the cost is over heaviest, but less than d and is an og, then we take advantage of it
+                    cout << (n-1)-og_cnt-1 << "\n";
+                    return;
+                }
+            } 
+        }
+        cout << (n-1)-og_cnt << "\n";
     }
 }
 
