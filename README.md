@@ -34,6 +34,7 @@
 - https://dmoj.ca/problem/acc2p1
 - https://dmoj.ca/problem/acc2p3
 - https://dmoj.ca/problem/aac2p5
+- https://dmoj.ca/problem/ioi01p1
 - https://dmoj.ca/problem/levvesegtree
 - https://dmoj.ca/problem/ds4
 
