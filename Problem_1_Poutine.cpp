@@ -84,6 +84,7 @@ void solve() {
             dp[1][i][j] = grid[i][j];
         }
     }
+    // k represents the number of days, i represents the starting point, j represents the ending point
     for (ll k = 2; k < n; ++k) {
         for (ll i = 0; i < n; ++i) {
             for (ll j = 0; j < n; ++j) {

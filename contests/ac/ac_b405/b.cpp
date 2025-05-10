@@ -3,25 +3,24 @@
 
 #include <bits/stdc++.h>
 
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
-
 using namespace std;
-using namespace __gnu_pbds;
 
-using ll = long long;
-using ld = long double;
-using pll = pair<ll, ll>;
-using vll = vector<ll>;
-using vvll = vector<vector<ll>>;
-using vpll = vector<pair<ll, ll>>;
+typedef long long ll;
+typedef long double ld;
+typedef pair<ll, ll> pll;
+typedef vector<ll> vll;
+typedef vector< vector<ll> > vvll;
+typedef vector< pair<ll, ll> > vpll;
+typedef unordered_map<ll, ll> mll;
+typedef unordered_set<ll> sll;
 
 #define FOR(i, s, e) for (ll i = (ll)s; i < (ll)e; i++)
 #define CFOR(i, s, e) for (ll i = (ll)s; i <= (ll)e; i++)
-#define RFOR(i, e, s) for (ll i = (ll)e; i > (ll)s; i--)
+#define RFOR(i, e, s) for (ll i = (ll)e-1; i >= (ll)s; i--)
 #define TRAV(a, c) for (auto a : c)
 #define all(x) x.begin(), x.end()
 
+ll read(){ll s=0,f=1;char ch=getchar();while(ch<'0'||ch>'9'){if(ch=='-')f=-1;ch=getchar();}while(ch>='0'&&ch<='9'){s=(s<<3)+(s<<1)+ch-'0',ch=getchar();}return s*f;}
 template <class T>
 string to_string(T s, T e) {
     if (s == e) return "[]";
@@ -40,12 +39,33 @@ string to_string(T s, T e) {
 
 #define SINGLE ;
 // #define MULTIPLE ;
-// #define GOOGLE ;
 
 ll n, m;
+ll a[101], freq[101];
 
 void solve() {
-    cin >> n;
+    cin >> n >> m;
+    for (ll i = 0; i < n; ++i) {
+        cin >> a[i];
+        freq[a[i]]++;
+    }
+    for (ll i = 1; i <= m; ++i) {
+        if (freq[i] == 0) {
+            cout << "0\n";
+            return;
+        }
+    }
+    ll cnt = 0;
+    for (ll i = n-1; i >= 0; --i) {
+        if (freq[a[i]] == 1 && a[i] <= m) {
+            cout << cnt+1 << "\n";
+            return;
+        } else if (freq[a[i]] > 1) {
+            cnt++;
+            freq[a[i]]--;
+        }
+    }
+    cout << n << "\n";
 }
 
 int main() {
@@ -67,14 +87,6 @@ int main() {
     ll t;
     cin >> t;
     for (ll i = 0; i < t; i++) {
-        solve();
-    }
-#endif
-#ifdef GOOGLE
-    ll t;
-    cin >> t;
-    for (ll i = 1; i <= t; i++) {
-        cout << "Case #" << i << ": ";
         solve();
     }
 #endif
